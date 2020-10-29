@@ -20,11 +20,11 @@
         </div>
         <section class="cartao">
             <h2 class="cartao__titulo">Complete seu cadastro</h2>
-            <form action="" class="formulario flex flex--coluna">
+            <form action="./cadastro_concluido.html" class="formulario flex flex--coluna">
                 <fieldset>
                     <legend class="formulario__legenda">Informações básicas</legend>
-                    <div class="input-container input-container--invalido">
-                        <input name="email" id="email" class="input" type="email" placeholder="Email">
+                    <div class="input-container">
+                        <input name="email" id="email" class="input" type="email" placeholder="Email" required>
                         <label class="input-label" for="email">Email</label>
                         <span class="input-mensagem-erro">Mensagem genérica de erro</span>
                     </div>
@@ -80,7 +80,7 @@
                         <span class="input-mensagem-erro">Mensagem genérica de erro</span>
                     </div>
                 </fieldset>
-                <a href="./cadastro_concluido.html" class="botao">Cadastrar</a>
+                <button class="botao">Cadastrar</a>
             </form>
         </section>
     </main>
