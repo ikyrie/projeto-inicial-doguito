@@ -34,7 +34,7 @@
                         <span class="input-mensagem-erro">Mensagem genérica de erro</span>
                     </div>
                     <div class="input-container">
-                        <input name="senha" id="senha" class="input" type="password" placeholder="Senha" minlength="6">
+                        <input name="senha" id="senha" class="input" type="password" placeholder="Senha" minlength="6" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?!.+[ !@#$%^&*_=+-]).{8,12}$" title="A senha não pode conter caracteres especiais">
                         <label class="input-label" for="senha">Senha</label>
                         <span class="input-mensagem-erro">Mensagem genérica de erro</span>
                     </div>
