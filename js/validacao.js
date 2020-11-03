@@ -43,6 +43,10 @@ const mensagensDeErro = {
     },
     nome: {
         valueMissing: "O nome não pode estar vazio"
+    },
+    cpf: {
+        valueMissing: "O CPF não pode estar vazio",
+        customError: "O CPF não é válido"
     }
 }
 
@@ -82,6 +86,8 @@ function maiorQue18(data) {
 function validaCPF(input) {
     const cpfFormatado = input.value.replace(/\D/g, '')
 
+    // && checaEstruturaDeCPF(cpfFormatado)
+
     if(checaCPFComNumerosRepetidos(cpfFormatado)) {
         input.setCustomValidity('')
         return
@@ -115,3 +121,55 @@ function checaCPFComNumerosRepetidos(cpf) {
 
     return cpfValido
 }
+
+// function checaEstruturaDeCPF(cpf) {
+//     const primeiroDigito = parseInt(cpf.charAt(9))
+//     const segundoDigito = parseInt(cpf.charAt(10))
+//     let valido = false
+
+//     valido = checaPrimeiroDigitoCPF(cpf, primeiroDigito)
+//     valido = checaSegundoDigitoCPF(cpf, segundoDigito)
+    
+//     return valido
+// }
+
+// function checaPrimeiroDigitoCPF(cpf, primeiroDigito) {
+//     let soma = 0
+//     let contador = 0
+//     let valido = false
+//     const cpfSemDigitos = cpf.substr(0, 9).split('')
+//     for(let multiplicador = 10; multiplicador > 1 ; multiplicador--) {
+//         soma = soma + cpfSemDigitos[contador] * multiplicador
+//         contador++
+//     }
+
+//     if(calculaDigito(soma) == primeiroDigito) {
+//         valido = true
+//     }
+
+//     return valido
+// }
+
+// function checaSegundoDigitoCPF(cpf, segundoDigito) {
+//     let soma = 0
+//     let contador = 0
+//     let valido = false
+//     const cpfSemDigitos = cpf.substr(0, 10).split('')
+//     for(let multiplicador = 11; multiplicador > 1 ; multiplicador--) {
+//         soma = soma + cpfSemDigitos[contador] * multiplicador
+//         contador++
+//     }
+
+//     if(calculaDigito(soma) == segundoDigito) {
+//         valido = true
+//     }
+
+//     return valido
+// }
+
+// function calculaDigito(soma) {
+//     if(soma % 11 > 9) {
+//         return 0
+//     }
+//     return 11 - (soma % 11)
+// }
