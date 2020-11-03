@@ -86,9 +86,7 @@ function maiorQue18(data) {
 function validaCPF(input) {
     const cpfFormatado = input.value.replace(/\D/g, '')
 
-    // && checaEstruturaDeCPF(cpfFormatado)
-
-    if(checaCPFComNumerosRepetidos(cpfFormatado)) {
+    if(checaCPFComNumerosRepetidos(cpfFormatado) && checaEstruturaDeCPF(cpfFormatado)) {
         input.setCustomValidity('')
         return
     } else {
@@ -122,54 +120,54 @@ function checaCPFComNumerosRepetidos(cpf) {
     return cpfValido
 }
 
-// function checaEstruturaDeCPF(cpf) {
-//     const primeiroDigito = parseInt(cpf.charAt(9))
-//     const segundoDigito = parseInt(cpf.charAt(10))
-//     let valido = false
+function checaEstruturaDeCPF(cpf) {
+    const primeiroDigito = parseInt(cpf.charAt(9))
+    const segundoDigito = parseInt(cpf.charAt(10))
+    let valido = false
 
-//     valido = checaPrimeiroDigitoCPF(cpf, primeiroDigito)
-//     valido = checaSegundoDigitoCPF(cpf, segundoDigito)
+    valido = checaPrimeiroDigitoCPF(cpf, primeiroDigito)
+    valido = checaSegundoDigitoCPF(cpf, segundoDigito)
     
-//     return valido
-// }
+    return valido
+}
 
-// function checaPrimeiroDigitoCPF(cpf, primeiroDigito) {
-//     let soma = 0
-//     let contador = 0
-//     let valido = false
-//     const cpfSemDigitos = cpf.substr(0, 9).split('')
-//     for(let multiplicador = 10; multiplicador > 1 ; multiplicador--) {
-//         soma = soma + cpfSemDigitos[contador] * multiplicador
-//         contador++
-//     }
+function checaPrimeiroDigitoCPF(cpf, primeiroDigito) {
+    let soma = 0
+    let contador = 0
+    let valido = false
+    const cpfSemDigitos = cpf.substr(0, 9).split('')
+    for(let multiplicador = 10; multiplicador > 1 ; multiplicador--) {
+        soma = soma + cpfSemDigitos[contador] * multiplicador
+        contador++
+    }
 
-//     if(calculaDigito(soma) == primeiroDigito) {
-//         valido = true
-//     }
+    if(calculaDigito(soma) == primeiroDigito) {
+        valido = true
+    }
 
-//     return valido
-// }
+    return valido
+}
 
-// function checaSegundoDigitoCPF(cpf, segundoDigito) {
-//     let soma = 0
-//     let contador = 0
-//     let valido = false
-//     const cpfSemDigitos = cpf.substr(0, 10).split('')
-//     for(let multiplicador = 11; multiplicador > 1 ; multiplicador--) {
-//         soma = soma + cpfSemDigitos[contador] * multiplicador
-//         contador++
-//     }
+function checaSegundoDigitoCPF(cpf, segundoDigito) {
+    let soma = 0
+    let contador = 0
+    let valido = false
+    const cpfSemDigitos = cpf.substr(0, 10).split('')
+    for(let multiplicador = 11; multiplicador > 1 ; multiplicador--) {
+        soma = soma + cpfSemDigitos[contador] * multiplicador
+        contador++
+    }
 
-//     if(calculaDigito(soma) == segundoDigito) {
-//         valido = true
-//     }
+    if(calculaDigito(soma) == segundoDigito) {
+        valido = true
+    }
 
-//     return valido
-// }
+    return valido
+}
 
-// function calculaDigito(soma) {
-//     if(soma % 11 > 9) {
-//         return 0
-//     }
-//     return 11 - (soma % 11)
-// }
+function calculaDigito(soma) {
+    if(soma % 11 > 9) {
+        return 0
+    }
+    return 11 - (soma % 11)
+}
