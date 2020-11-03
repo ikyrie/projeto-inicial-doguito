@@ -15,7 +15,8 @@ export function valida(input) {
 }
 
 const validadores = {
-    dataNascimento: input => validaDataNascimento(input)
+    dataNascimento: input => validaDataNascimento(input),
+    cpf: input => validaCPF(input)
 }
 
 const tiposDeErro = [
@@ -76,4 +77,41 @@ function maiorQue18(data) {
     )
     
     return data18Anos <= dataDeHoje
+}
+
+function validaCPF(input) {
+    const cpfFormatado = input.value.replace(/\D/g, '')
+
+    if(checaCPFComNumerosRepetidos(cpfFormatado)) {
+        input.setCustomValidity('')
+        return
+    } else {
+        input.setCustomValidity('Este CPF é inválido')
+        return
+    }
+
+}
+
+function checaCPFComNumerosRepetidos(cpf) {
+    const valoresRepetidos = [
+        '11111111111',
+        '22222222222',
+        '33333333333',
+        '44444444444',
+        '55555555555',
+        '66666666666',
+        '77777777777',
+        '88888888888',
+        '99999999999'
+    ]
+
+    let cpfValido = true
+
+    valoresRepetidos.forEach(valor => {
+        if(valor == cpf) {
+            cpfValido = false
+        } 
+    })
+
+    return cpfValido
 }
