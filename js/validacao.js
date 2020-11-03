@@ -7,10 +7,10 @@ export function valida(input) {
 
     if(input.validity.valid) {
         input.parentElement.classList.remove('input-container--invalido')
-        // input.parentElement.querySelector('span').innerHTML = ''
+        input.parentElement.querySelector('span').innerHTML = ''
     } else {
         input.parentElement.classList.add('input-container--invalido')
-        // input.parentElement.querySelector('span').innerHTML = pegaMensagemDeErro(tipoDeInput, input)
+        input.parentElement.querySelector('span').innerHTML = pegaMensagemDeErro(tipoDeInput, input)
     }
 }
 
@@ -45,15 +45,15 @@ const mensagensDeErro = {
     }
 }
 
-// function pegaMensagemDeErro(tipoDeInput, input) {
-//     let mensagem = ''    
-//     tiposDeErro.forEach(erro => {
-//         if(input.validity[erro]) {
-//             mensagem = mensagensDeErro[tipoDeInput][erro]
-//         }
-//     })
-//     return mensagem
-// }
+function pegaMensagemDeErro(tipoDeInput, input) {
+    let mensagem = ''    
+    tiposDeErro.forEach(erro => {
+        if(input.validity[erro]) {
+            mensagem = mensagensDeErro[tipoDeInput][erro]
+        }
+    })
+    return mensagem
+}
 
 function validaDataNascimento(input) {
     const dataRecebida = new Date(input.value)
