@@ -24,7 +24,8 @@ const tiposDeErro = [
     "customError",
     "typeMismatch",
     "valueMissing",
-    "tooShort"
+    "tooShort",
+    "patternMismatch"
 ]
 
 const mensagensDeErro = {
@@ -47,6 +48,10 @@ const mensagensDeErro = {
     cpf: {
         valueMissing: "O CPF não pode estar vazio",
         customError: "O CPF não é válido"
+    },
+    cep: {
+        valueMissing: "O CEP não pode estar vazio",
+        patternMismatch: "O CEP não é válido"
     }
 }
 
