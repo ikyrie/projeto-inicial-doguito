@@ -16,7 +16,8 @@ export function valida(input) {
 
 const validadores = {
     dataNascimento: input => validaDataNascimento(input),
-    cpf: input => validaCPF(input)
+    cpf: input => validaCPF(input),
+    cep: input => recuperarCep(input)
 }
 
 const tiposDeErro = [
@@ -52,6 +53,15 @@ const mensagensDeErro = {
     cep: {
         valueMissing: "O CEP não pode estar vazio",
         patternMismatch: "O CEP não é válido"
+    },
+    logradouro: {
+        valueMissing: "O logradouro não pode estar vazio"
+    },
+    cidade: {
+        valueMissing: "A cidade não pode estar vazia"
+    },
+    estado: {
+        valueMissing: "O estado não pode estar vazio"
     }
 }
 
@@ -175,4 +185,43 @@ function calculaDigito(soma) {
         return 0
     }
     return 11 - (soma % 11)
+}
+
+function recuperarCep(input) {
+    const cep = input.value.replace(/\D/g, '')
+    const url = `https://viacep.com.br/ws/${cep}/json/`
+    const options = {
+        method: 'GET',
+        mode: 'cors',
+        headers: {
+            'content-type': 'application/json;charset=utf-8'
+        }
+    }
+
+    if(input.validity.valid) {
+        fetch(url, options).then(
+            response => response.json()
+        ).then(
+            data => {
+                if(data.erro) {
+                    input.setCustomValidity('O CEP não é válido')
+                    return
+                }
+
+                preencheCamposComCep(data)
+                input.setCustomValidity('')
+                return
+            }
+        )
+    }
+}
+
+function preencheCamposComCep(data) {
+    const logradouro = document.querySelector('[data-tipo="logradouro"]')
+    const cidade = document.querySelector('[data-tipo="cidade"]')
+    const estado = document.querySelector('[data-tipo="estado"]')
+
+    logradouro.value = data.logradouro
+    cidade.value = data.localidade
+    estado.value = data.uf
 }
