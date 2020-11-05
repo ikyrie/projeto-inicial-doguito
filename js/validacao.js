@@ -40,7 +40,7 @@ const mensagensDeErro = {
     senha: {
         valueMissing: "A senha não pode estar vazia",
         tooShort: "A senha é muito curta",
-        typeMismatch: "A senha deve conter entre 8 e 12 caractéres e deve conter um número e uma letra maiúscula."
+        patternMismatch: "A senha deve conter entre 8 e 12 caractéres e deve conter um número e uma letra maiúscula."
     },
     nome: {
         valueMissing: "O nome não pode estar vazio"
