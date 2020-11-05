@@ -101,7 +101,7 @@ function maiorQue18(data) {
 
 function validaCPF(input) {
     const cpfFormatado = input.value.replace(/\D/g, '')
-    let mensagem
+    let mensagem = ''
 
     if(!checaCPFComNumerosRepetidos(cpfFormatado) && !checaEstruturaDeCPF(cpfFormatado)) {
         mensagem = 'Este CPF é inválido'
