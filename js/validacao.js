@@ -24,7 +24,6 @@ const tiposDeErro = [
     "valueMissing",
     "customError",
     "typeMismatch",
-    "valueMissing",
     "tooShort",
     "patternMismatch"
 ]
@@ -80,14 +79,13 @@ function pegaMensagemDeErro(tipoDeInput, input) {
 
 function validaDataNascimento(input) {
     const dataRecebida = new Date(input.value)
+    let mensagem = ''
 
-    if(maiorQue18(dataRecebida)) {
-        input.setCustomValidity('')
-        return
-    } else {
-        input.setCustomValidity('Você deve ser maior de 18 anos para se cadastrar')
-        return
+    if(!maiorQue18(dataRecebida)) {
+        mensagem = 'Você deve ser maior de 18 anos para se cadastrar'
     }
+    
+    input.setCustomValidity(mensagem)
 }
 
 function maiorQue18(data) {
@@ -103,15 +101,13 @@ function maiorQue18(data) {
 
 function validaCPF(input) {
     const cpfFormatado = input.value.replace(/\D/g, '')
+    let mensagem
 
-    if(checaCPFComNumerosRepetidos(cpfFormatado) && checaEstruturaDeCPF(cpfFormatado)) {
-        input.setCustomValidity('')
-        return
-    } else {
-        input.setCustomValidity('Este CPF é inválido')
-        return
-    }
+    if(!checaCPFComNumerosRepetidos(cpfFormatado) && !checaEstruturaDeCPF(cpfFormatado)) {
+        mensagem = 'Este CPF é inválido'
+    } 
 
+    input.setCustomValidity(mensagem)
 }
 
 function checaCPFComNumerosRepetidos(cpf) {
