@@ -103,7 +103,7 @@ function validaCPF(input) {
     const cpfFormatado = input.value.replace(/\D/g, '')
     let mensagem = ''
 
-    if(!checaCPFComNumerosRepetidos(cpfFormatado) && !checaEstruturaDeCPF(cpfFormatado)) {
+    if(!checaCPFComNumerosRepetidos(cpfFormatado) || !checaEstruturaDeCPF(cpfFormatado)) {
         mensagem = 'Este CPF é inválido'
     } 
 
@@ -135,51 +135,36 @@ function checaCPFComNumerosRepetidos(cpf) {
 }
 
 function checaEstruturaDeCPF(cpf) {
-    const primeiroDigito = parseInt(cpf.charAt(9))
-    const segundoDigito = parseInt(cpf.charAt(10))
     let valido = false
+    const multiplicador = 10
 
-    valido = checaPrimeiroDigitoCPF(cpf, primeiroDigito)
-    valido = checaSegundoDigitoCPF(cpf, segundoDigito)
+    valido = checaDigitoVerificadorCPF(cpf, multiplicador)
     
     return valido
 }
 
-function checaPrimeiroDigitoCPF(cpf, primeiroDigito) {
+function checaDigitoVerificadorCPF(cpf, multiplicador) {
+    if(multiplicador >= 12) {
+        return true
+    }
+
     let soma = 0
     let contador = 0
-    let valido = false
-    const cpfSemDigitos = cpf.substr(0, 9).split('')
-    for(let multiplicador = 10; multiplicador > 1 ; multiplicador--) {
+    const cpfSemDigitos = cpf.substr(0, multiplicador - 1).split('')
+    const digitoVerificador = cpf.charAt(multiplicador - 1)
+    for(; multiplicador > 1 ; multiplicador--) {
         soma = soma + cpfSemDigitos[contador] * multiplicador
         contador++
     }
 
-    if(calculaDigito(soma) == primeiroDigito) {
-        valido = true
+    if(confirmaDigito(soma) == digitoVerificador) {
+        return checaDigitoVerificadorCPF(cpf, multiplicador + 1)
     }
 
-    return valido
+    return false
 }
 
-function checaSegundoDigitoCPF(cpf, segundoDigito) {
-    let soma = 0
-    let contador = 0
-    let valido = false
-    const cpfSemDigitos = cpf.substr(0, 10).split('')
-    for(let multiplicador = 11; multiplicador > 1 ; multiplicador--) {
-        soma = soma + cpfSemDigitos[contador] * multiplicador
-        contador++
-    }
-
-    if(calculaDigito(soma) == segundoDigito) {
-        valido = true
-    }
-
-    return valido
-}
-
-function calculaDigito(soma) {
+function confirmaDigito(soma) {
     if(soma % 11 > 9) {
         return 0
     }
